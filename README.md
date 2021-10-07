@@ -1,4 +1,6 @@
-# eco-web
+# EcoHub Frontoffice
+Веб морда для приложения EcoHub. Общается с открытыми методами через
+админску апи (api_admin). Готовая админка развернута на https://recyclehub.ru
 
 ## Project setup
 ```

@@ -1,80 +1,80 @@
 <template>
   <div>
-    <div>
-      <div class="container">
-        <div class="row">
-          <div class="col-sm">
-            <label>Тип ресурса</label>
-            <!--             Пока не получилось отправлять запросы со списком параметров-->
-            <!--
-                        <multiselect v-model="selected_filters"
-                                     :multiple="true"
-                                     :searchable="true"
-                                     :close-on-select="false"
-                                     :options="filters.map(f => f.name)"
-                                     placeholder="Выберите фильтр"
-                                     title="Фильтр"
-                        >
-                        </multiselect>-->
-            <b-form-select v-model="selected_filters"
-                           :options="[{value: null, text: 'Нет фильтра'}].concat(
+      <b-card
+          title="Найди на карте нужный тебе пункт приема:"
+          class="rounded-50"
+          style="margin-left: 30px; margin-right: 30px; border-radius: 50px"
+      >
+        <b-card-body>
+          <div class="container" style="height: 200px">
+            <div class="row">
+              <div class="col-sm">
+                <label for="kek">Тип ресурса</label>
+                <!--             Пока не получилось отправлять запросы со списком параметров-->
+                <!--
+                            <multiselect v-model="selected_filters"
+                                         :multiple="true"
+                                         :searchable="true"
+                                         :close-on-select="false"
+                                         :options="filters.map(f => f.name)"
+                                         placeholder="Выберите фильтр"
+                                         title="Фильтр"
+                            >
+                            </multiselect>-->
+                <b-form-select id="kek" v-model="selected_filters"
+                               :options="[{value: null, text: 'Нет фильтра'}].concat(
                                filters.map(f => ({value: f.id, text: f.name}))
                             )"
-                           class="mb-2"/>
+                               class="mb-2"/>
+              </div>
+              <div class="col-sm">
+                <label>Тип переработки</label>
+                <b-form-select v-model="reception_type"
+                               text="Тип переработки"
+                               :options="[
+                                  {value: null, text: 'Нет фильтра'},
+                                ].concat(Object.keys(rec_types).map(k => ({value: k, text: rec_types[k]})))"
+                               class="mb-2"/>
+              </div>
+              <div class="col-sm">
+                <label>Тип оплаты</label>
+                <b-form-select v-model="payback_type"
+                               text="Тип оплаты"
+                               :options="[
+                                  {value: null, text: 'Нет фильтра'},
+                                ].concat(Object.keys(payback_types).map(k => ({value: k, text: payback_types[k]})))"
+                               class="mb-2">
+                </b-form-select>
+              </div>
+            </div>
           </div>
-          <div class="col-sm">
-            <label>Тип переработки</label>
-            <b-form-select v-model="reception_type"
-                          text="Тип переработки"
-                          :options="[
-                              {value: null, text: 'Нет фильтра'},
-                              {value: 'recycle', text: 'Переработка'},
-                              {value: 'utilisation', text: 'Утилизация'},
-                              {value: 'charity', text: 'Благотворительность'},
-                          ]"
-                          class="mb-2"/>
-          </div>
-          <div class="col-sm">
-            <label>Тип оплаты</label>
-            <b-form-select v-model="payback_type"
-                        text="Тип оплаты"
-                         :options="[
-                             {value: null, text: 'Нет фильтра'},
-                            {value: 'free', text: 'Бесплатно'},
-                            {value: 'paid', text: 'Оплата деньгами'},
-                            {value: 'partner', text: 'Оплата эко-коинами'},
-                        ]"
-                        class="mb-2">
-            </b-form-select>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <gmap-map
-        ref="mymap"
-        :zoom="zoom"
-        :center="center"
-        style="width:100%;  height: 600px;"
-    >
-      <gmap-info-window
-          :options="infoOptions"
-          :position="infoPosition"
-          :opened="infoOpened"
-          @closeclick="infoOpened=false"
-      >
-      </gmap-info-window>
-      <gmap-marker
-          v-bind:key="m.id"
-          v-for="(m, index) in locationMarkers"
-          :position="m.position"
-          :icon="m.icon"
-          :title="m.name"
-          :clickable="true"
-          @click="toggleInfoWindow(m, index)"
-      >
-      </gmap-marker>
-    </gmap-map>
+          <gmap-map
+              ref="mymap"
+              :zoom="zoom"
+              :center="center"
+              style="width:100%;  height: 800px;"
+          >
+            <gmap-info-window
+                :options="infoOptions"
+                :position="infoPosition"
+                :opened="infoOpened"
+                @closeclick="infoOpened=false"
+            >
+            </gmap-info-window>
+            <gmap-marker
+                v-bind:key="m.id"
+                v-for="(m, index) in locationMarkers"
+                :position="m.position"
+                :icon="m.icon"
+                :title="m.name"
+                :clickable="true"
+                @click="toggleInfoWindow(m, index)"
+            >
+            </gmap-marker>
+          </gmap-map>
+        </b-card-body>
+      </b-card>
   </div>
 </template>
 
@@ -93,6 +93,16 @@ export default {
       zoom: 12,
       filters: [],
       selected_filters: [],
+      rec_types: {
+        'recycle': 'Переработка',
+        'utilisation': 'Утилизация',
+        'charity': 'Благотворительность'
+      },
+      payback_types: {
+        'free': 'Бесплатно',
+        'paid': 'Оплата деньгами',
+        'partner': 'Оплата эко-коинами',
+      },
       reception_type: null,
       payback_type: null,
       locationMarkers: [],
@@ -167,8 +177,7 @@ export default {
             lat: rec_point.coords[0],
             lng: rec_point.coords[1]
           },
-          icon: "/eco.png",
-          // icon: "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png",
+          icon: "/favicon.png",
           ...rec_point,
         });
       })
@@ -194,20 +203,49 @@ export default {
     getInfoWindowContent: function (marker) {
       const default_image = "https://bulma.io/images/placeholders/96x96.png";
       const image = marker.images[0] || marker.external_images[0] || default_image;
+      const filters = marker.accept_types_names.map(name =>
+          `<button type="button" class="btn btn-outline-success" style="margin-left: 10px; margin-top: 10px">${name}</button>`
+      ).join('');
+
+      const work_time_table_body = Object.keys(marker.work_time).map(week_day =>
+          `<th>${marker.work_time[week_day].join('<br/>')}</th>`
+      ).join('');
+      const work_time_table_thread = Object.keys(marker.work_time).map(week_day =>
+          `<th scope="col">${week_day}</th>`
+      ).join('');
+
       return (`
         <div class="card">
           <img src="${image}" style="width: 200px; margin: auto"
           class="card-img-top rounded" alt="Icon">
-
-
           <div class="card-body">
             <h5 class="card-title">${marker.name}</h5>
+            <h6 style="text-align: left">Принимают:</h6>
+                ${filters}
+            <h6 style="text-align: left">Адрес:</h6>
+            <p style="text-align: left">${marker.address}</p>
+            <h6 style="text-align: left">Контакты:</h6>
+            <p style="text-align: left">${marker.contacts.join(', ')}</p>
+            <h6 style="text-align: left">Описание:</h6>
+            <p class="card-text text-left">${marker.description || "Нет описания"}</p>
+            <h6 style="text-align: left">Тип переработки:</h6>
+            <p class="card-text text-left">${this.rec_types[marker.reception_type]}</p>
+            <h6 style="text-align: left">Тип оплаты:</h6>
+            <p class="card-text text-left">${this.payback_types[marker.payback_type]}</p>
+            <h6 style="text-align: left">Время работы:</h6>
+            <table class="table">
+              <thead>
+                <tr>
+                  ${work_time_table_thread}
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  ${work_time_table_body}
+                </tr>
+              </tbody>
+            </table>
 
-            <p class="card-text text-left">
-              ${marker.description || "Нет описания"}
-<!--              <br>-->
-<!--              <time datetime="2016-1-1"></time>-->
-            </p>
           </div>
         </div>
     `);

@@ -1,14 +1,19 @@
 <template>
-  <div id="app">
-    <div>
-      <h2>RecycleHub</h2>
-    </div>
-    <AddGoogleMap />
+  <div id="app" style="
+    background-image: url(header-bg.png);
+    background-repeat: no-repeat;
+    background-color: #d5dee6;
+  ">
+    <Header/>
+    <AddGoogleMap/>
+    <Footer/>
   </div>
 </template>
 
 <script>
-import AddGoogleMap from "./components/AddGoogleMap";
+import AddGoogleMap from "./components/AddGoogleMap"
+import Header from "./components/Header"
+import Footer from "./components/Footer";
 
 export default {
   // name: 'App',
@@ -19,7 +24,7 @@ export default {
     }
   },
   components: {
-    AddGoogleMap
+    AddGoogleMap, Header,Footer
   },
   methods: {
     toggle() {
