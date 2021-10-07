@@ -6,48 +6,72 @@
           style="margin-left: 30px; margin-right: 30px; border-radius: 50px"
       >
         <b-card-body>
-          <div class="container" style="height: 200px">
-            <div class="row">
-              <div class="col-sm">
-                <label for="kek">Тип ресурса</label>
-                <!--             Пока не получилось отправлять запросы со списком параметров-->
-                <!--
-                            <multiselect v-model="selected_filters"
-                                         :multiple="true"
-                                         :searchable="true"
-                                         :close-on-select="false"
-                                         :options="filters.map(f => f.name)"
-                                         placeholder="Выберите фильтр"
-                                         title="Фильтр"
-                            >
-                            </multiselect>-->
-                <b-form-select id="kek" v-model="selected_filters"
-                               :options="[{value: null, text: 'Нет фильтра'}].concat(
-                               filters.map(f => ({value: f.id, text: f.name}))
-                            )"
-                               class="mb-2"/>
-              </div>
-              <div class="col-sm">
-                <label>Тип переработки</label>
-                <b-form-select v-model="reception_type"
-                               text="Тип переработки"
-                               :options="[
-                                  {value: null, text: 'Нет фильтра'},
-                                ].concat(Object.keys(rec_types).map(k => ({value: k, text: rec_types[k]})))"
-                               class="mb-2"/>
-              </div>
-              <div class="col-sm">
-                <label>Тип оплаты</label>
-                <b-form-select v-model="payback_type"
-                               text="Тип оплаты"
-                               :options="[
-                                  {value: null, text: 'Нет фильтра'},
-                                ].concat(Object.keys(payback_types).map(k => ({value: k, text: payback_types[k]})))"
-                               class="mb-2">
-                </b-form-select>
-              </div>
-            </div>
-          </div>
+          <b-container style="margin-bottom: 50px">
+            <b-row>
+              <b-col>
+                <b-card>
+                  <b-card-header>
+                    <h5>Тип ресурса</h5>
+                    <b-dropdown v-bind:text="selected_filter.name">
+                      <b-dropdown-item v-for="(filter, index) in filters"
+                                       :key="index"
+                                       :value="filter"
+                                       @click="selected_filter = filter"
+                      >{{ filter.name }}</b-dropdown-item>
+                    </b-dropdown>
+                  </b-card-header>
+                  <b-card-text v-if="selected_filter.id !== null">
+                    <b-row style="margin-top: 20px">
+                      <b-card-text>Что можно:
+                        <b-badge variant="success"
+                                 v-for="(item, index) in selected_filter.key_words"
+                                 :key="index"
+                                 style="margin-left: 10px; font-size: 15px"
+                        >{{item}}</b-badge>
+                      </b-card-text>
+                    </b-row>
+                    <b-row style="margin-top: 20px">
+                      <b-card-text>Что нельзя:
+                        <b-badge variant="danger"
+                                 v-for="(item, index) in selected_filter.bad_words"
+                                 :key="index"
+                                 style="margin-left: 10px; font-size: 15px"
+                        >{{item}}</b-badge>
+                      </b-card-text>
+                    </b-row>
+                  </b-card-text>
+                </b-card>
+              </b-col>
+              <b-col>
+                <b-card>
+                  <b-card-header>
+                    <h5>Тип переработки</h5>
+                    <b-dropdown v-bind:text="rec_types[reception_type]">
+                      <b-dropdown-item v-for="(name, key) in rec_types"
+                                       :key="key"
+                                       :value="key"
+                                       @click="reception_type = key"
+                      >{{ name }}</b-dropdown-item>
+                    </b-dropdown>
+                  </b-card-header>
+                </b-card>
+              </b-col>
+              <b-col>
+                <b-card>
+                  <b-card-header>
+                    <h5>Тип оплаты</h5>
+                    <b-dropdown v-bind:text="payback_types[payback_type]">
+                      <b-dropdown-item v-for="(name, key) in payback_types"
+                                       :key="key"
+                                       :value="key"
+                                       @click="payback_type = key"
+                      >{{ name }}</b-dropdown-item>
+                    </b-dropdown>
+                  </b-card-header>
+                </b-card>
+              </b-col>
+            </b-row>
+          </b-container>
 
           <gmap-map
               ref="mymap"
@@ -92,25 +116,27 @@ export default {
       },
       zoom: 12,
       filters: [],
-      selected_filters: [],
+      selected_filter: {id: null, name: 'Без фильтра', key_words: [], bad_words: []},
       rec_types: {
+        'null': 'Нет фильтра',
         'recycle': 'Переработка',
         'utilisation': 'Утилизация',
         'charity': 'Благотворительность'
       },
       payback_types: {
+        null: 'Нет фильтра',
         'free': 'Бесплатно',
         'paid': 'Оплата деньгами',
         'partner': 'Оплата эко-коинами',
       },
-      reception_type: null,
-      payback_type: null,
+      reception_type: 'null',
+      payback_type: 'null',
       locationMarkers: [],
       locPlaces: [],
       existingPlace: null,
       rec_points: [],
 
-      infoContent: 'hello',
+      infoContent: 'hel.lo',
       infoPosition: {
         lat: 0,
         lng: 0
@@ -122,7 +148,7 @@ export default {
           width: 0,
           height: -35
         },
-        content: "hello"
+        content: "загрузка ..."
       },
       };
   },
@@ -131,10 +157,13 @@ export default {
     this.update_rec_points();
     axios
         .get('https://recyclehub.ru:5000/api/filters')
-        .then(response => (this.filters = response.data));
+        .then(response => {
+          this.filters = [{id: null, name: 'Без фильтра'}].concat(response.data);
+          this.selected_filter = this.filters[0];
+        });
   },
   watch: {
-    selected_filters: function (){
+    selected_filter: function (){
       this.update_rec_points();
     },
     reception_type: function (){
@@ -146,14 +175,13 @@ export default {
   },
   methods: {
     update_rec_points() {
-      console.log(`selected filters ${this.selected_filters}`)
       const params = {
         position: '[55.799779,49.1319283]',
         radius: 100,
-        ...((this.reception_type) ? {reception_type: this.reception_type}: {}),
-        ...((this.payback_type) ? {payback_type: this.payback_type}: {}),
+        ...(this.reception_type != 'null' ? {reception_type: this.reception_type}: {}),
+        ...(this.payback_type != 'null' ? {payback_type: this.payback_type}: {}),
         // пока что я не разобрался, как работать со списком в параметрах запроса в axios
-        ...((this.selected_filters) ? {filters: this.selected_filters}: {}),
+        ...(this.selected_filter.id  != null ? {filters: this.selected_filter.id}: {}),
         //...((this.selected_filters.length > 0) ? {filters: this.selected_filters.map(f_ => this.filters.filter(f => f.name === f_)[0].id)[0] }: {}),
       }
       console.log(params);
@@ -204,11 +232,14 @@ export default {
       const default_image = "https://bulma.io/images/placeholders/96x96.png";
       const image = marker.images[0] || marker.external_images[0] || default_image;
       const filters = marker.accept_types_names.map(name =>
-          `<button type="button" class="btn btn-outline-success" style="margin-left: 10px; margin-top: 10px">${name}</button>`
+          `<span class="badge bg-success" style="margin-left: 10px; margin-top: 10px; font-size: 15px">${name}</span>`
       ).join('');
 
-      const work_time_table_body = Object.keys(marker.work_time).map(week_day =>
-          `<th>${marker.work_time[week_day].join('<br/>')}</th>`
+      const work_time_table_body = Object.keys(marker.work_time).map(week_day => {
+            const hours = marker.work_time[week_day];
+            const str =  Array.isArray(hours) ? hours.join('<br/>'): hours;
+            return `<th>${str}</th>`;
+          }
       ).join('');
       const work_time_table_thread = Object.keys(marker.work_time).map(week_day =>
           `<th scope="col">${week_day}</th>`

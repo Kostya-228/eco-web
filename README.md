@@ -1,26 +1,23 @@
 # EcoHub Frontoffice
 Веб морда для приложения EcoHub. Общается с открытыми методами через
-админску апи (api_admin). Готовая админка развернута на https://recyclehub.ru
+админску апи (api_admin).
 
-## Project setup
-```
-npm install
-```
+## Запустить локально
+1) Скачать зависимости
+    ```
+    npm i
+    ```
+2) Запустить
+    ```
+    npm run serve
+    ```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Запустить на сервере
+1) Собрать образ
+    ```
+    docker-copmose build
+    ```
+2) Запустить
+    ```
+    docker-compose up -d
+    ```

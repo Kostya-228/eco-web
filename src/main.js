@@ -16,7 +16,7 @@ Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
 Vue.use(VueGoogleMaps, {
   load: {
-    key: "AIzaSyBQFAqPoWAnJ9EReOUj5zwmmbpI4INM5gQ",
+    // key: "AIzaSyBQFAqPoWAnJ9EReOUj5zwmmbpI4INM5gQ",
     libraries: "places"
   }
 });
