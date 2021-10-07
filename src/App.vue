@@ -6,6 +6,7 @@
   ">
     <Header/>
     <AddGoogleMap/>
+    <News/>
     <Footer/>
   </div>
 </template>
@@ -14,6 +15,7 @@
 import AddGoogleMap from "./components/AddGoogleMap"
 import Header from "./components/Header"
 import Footer from "./components/Footer";
+import News from "./components/News";
 
 export default {
   // name: 'App',
@@ -24,7 +26,7 @@ export default {
     }
   },
   components: {
-    AddGoogleMap, Header,Footer
+    AddGoogleMap, Header, Footer, News
   },
   methods: {
     toggle() {
