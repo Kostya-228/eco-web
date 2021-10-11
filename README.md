@@ -13,11 +13,15 @@
     ```
 
 ## Запустить на сервере
-1) Собрать образ
+1) В корнь проекта скопировать сертификаты или создать с помощь команды:
+   ```bash
+   openssl req -newkey rsa:2048 -nodes -keyout key.pem -x509 -days 365 -out certificate.pem
+   ```
+2) Собрать образ
     ```
     docker-copmose build
     ```
-2) Запустить
+3) Запустить
     ```
     docker-compose up -d
     ```
