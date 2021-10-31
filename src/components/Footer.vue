@@ -6,13 +6,17 @@
       </b-row>
       <b-row >
         <div style="margin: auto">
-          <b-img src="images/app-store-badge.svg" style="width: 240px;"/>
-          <b-img src="images/google-play-badge.png" style="width: 300px;"/>
+          <a href="https://apps.apple.com/us/app/recyclehub/id1584204305#?platform=iphone">
+            <b-img src="images/app-store-badge.svg" style="width: 240px;"/>
+          </a>
+          <a href="https://play.google.com/store/apps/details?id=com.beerstudio.recycle_hub">
+            <b-img src="images/google-play-badge.png" style="width: 300px;"/>
+          </a>
         </div>
       </b-row>
       <b-row>
         <b-col>
-          <p>© 2021 EcoHub <a href="#">Privacy</a> · <a href="#">Terms</a></p>
+          <p>© 2021 EcoHub <a href="/privacy">Privacy</a> · <a href="/privacy/#/conditions/">Conditions</a></p>
         </b-col>
         <b-col>
           <p class="float-right"><a href="#app">Back to top</a></p>

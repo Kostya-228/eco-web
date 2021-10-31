@@ -136,7 +136,6 @@ export default {
       existingPlace: null,
       rec_points: [],
 
-      infoContent: 'hel.lo',
       infoPosition: {
         lat: 0,
         lng: 0
