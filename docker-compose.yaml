@@ -12,7 +12,6 @@ services:
     ports:
       - "8080:8080"
     command: [ "http-server", "dist", "--ssl", "--cert", "certificate.pem", "--key", "key.pem" ]
-
   privacy:
     container_name: eco-privacy
     build:
