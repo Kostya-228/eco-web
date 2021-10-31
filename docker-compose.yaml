@@ -11,4 +11,15 @@ services:
     image: eco-frontoffice:latest
     ports:
       - "8080:8080"
-    command: [ "http-server", "dist", "--ssl", "--cert", "certificate.pem", "--key", "key.pem"]
+    command: [ "http-server", "dist", "--ssl", "--cert", "certificate.pem", "--key", "key.pem" ]
+
+  privacy:
+    container_name: eco-privacy
+    build:
+      context: ./privacy
+    volumes:
+      - ./privacy/:/docs
+    image: eco-privacy:latest
+    ports:
+      - "8083:8080"
+    command: ["docsify", "serve", ".", "--port", "8080"]
