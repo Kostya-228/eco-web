@@ -6,8 +6,8 @@ services:
       context: .
       dockerfile: ./Dockerfile
     volumes:
-      - ./certificate.pem:/app/certificate.pem
-      - ./key.pem:/app/key.pem
+      - ./ssl/certificate.pem:/app/certificate.pem
+      - ./ssl/key.pem:/app/key.pem
     image: eco-frontoffice:latest
     ports:
       - "8080:8080"

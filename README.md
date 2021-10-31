@@ -15,7 +15,7 @@
 ## Запустить на сервере
 1) В корнь проекта скопировать сертификаты или создать с помощь команды:
    ```bash
-   openssl req -newkey rsa:2048 -nodes -keyout key.pem -x509 -days 365 -out certificate.pem
+   openssl req -newkey rsa:2048 -nodes -keyout ssl/key.pem -x509 -days 365 -out ssl/certificate.pem
    ```
 2) Собрать образ
     ```
