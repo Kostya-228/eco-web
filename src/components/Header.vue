@@ -1,15 +1,37 @@
 <template>
-  <div>
-    <b-carousel
-        id="carousel-1"
+    <div>
+      <b-navbar variant="success" fixed="top">
+        <b-navbar-brand href="#">RecycleHub</b-navbar-brand>
+        <b-collapse id="nav-collapse" is-nav>
+
+            <div v-if="$isMobile()">
+              <b-navbar-nav>
+              <b-nav-item-dropdown text="О нас" left>
+                <b-nav-item href="#carousel">О нас</b-nav-item>
+                <b-nav-item href="#map">Карта</b-nav-item>
+                <b-nav-item href="#news">Новости</b-nav-item>
+                <b-nav-item href="#footer">Приложение</b-nav-item>
+              </b-nav-item-dropdown>
+                </b-navbar-nav>
+            </div>
+            <div v-else>
+              <b-navbar-nav>
+                <b-nav-item href="#carousel">О нас</b-nav-item>
+                <b-nav-item href="#map">Карта</b-nav-item>
+                <b-nav-item href="#news">Новости</b-nav-item>
+                <b-nav-item href="#footer">Приложение</b-nav-item>
+              </b-navbar-nav>
+            </div>
+        </b-collapse>
+  </b-navbar>
+      <b-carousel
+        id="carousel"
         v-model="slide"
         :interval="4000"
         controls
         indicators
         img-height="500"
-        style="text-shadow: 2px 2px 3px #333; height: 600px; width: 1200px; margin: auto"
-        @sliding-start="onSlideStart"
-        @sliding-end="onSlideEnd"
+        style="text-shadow: 2px 2px 3px #333; width: 80%; margin: auto"
     >
 
       <b-carousel-slide
@@ -18,7 +40,13 @@
          и получить реальные деньги за отсортированнынй мусор из твоего дома"
       >
         <template #img>
-          <b-img width="450" src="images/1.svg"/>
+          <div v-if="$isMobile()">
+            <b-img width="300" src="images/1.svg"/>
+            <div style="height:200px"/>
+          </div>
+          <div v-else>
+            <b-img width="450" src="images/1.svg"/>
+          </div>
         </template>
       </b-carousel-slide>
 
@@ -29,7 +57,13 @@
            Для этого в приложении мы разарботали экогид, который поможет во всем разобраться"
       >
         <template #img>
-          <b-img width="450" src="images/2.svg"/>
+          <div v-if="$isMobile()">
+            <b-img width="300" src="images/2.svg"/>
+            <div style="height:200px"/>
+          </div>
+          <div v-else>
+            <b-img width="450" src="images/2.svg"/>
+          </div>
         </template>
       </b-carousel-slide>
 
@@ -39,7 +73,13 @@
          сможете обменять ЭкоКоины на товары и услуги партнера сервиса."
       >
         <template #img>
-          <b-img width="450" src="images/3.svg"/>
+          <div v-if="$isMobile()">
+            <b-img width="300" src="images/3.svg"/>
+            <div style="height:200px"/>
+          </div>
+          <div v-else>
+            <b-img width="450" src="images/3.svg"/>
+          </div>
         </template>
       </b-carousel-slide>
 <!--      <b-carousel-slide img-src="images/4.svg"></b-carousel-slide>-->
@@ -70,17 +110,6 @@ export default {
       slide: 0,
       sliding: null
     }
-  },
-  methods: {
-    onSlideStart(slide) {
-      console.log(slide)
-      this.sliding = true
-    },
-    onSlideEnd(slide) {
-      console.log(slide)
-      this.sliding = false
-    }
   }
-
 }
 </script>

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 
 import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
+import VueMobileDetection from "vue-mobile-detection";
 import * as VueGoogleMaps from "vue2-google-maps"
 
 
@@ -19,6 +20,7 @@ Vue.use(VueGoogleMaps, {
     libraries: "places"
   }
 });
+Vue.use(VueMobileDetection);
 
 new Vue({
   render: h => h(App),

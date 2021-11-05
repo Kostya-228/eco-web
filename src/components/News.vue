@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div id="news">
   <b-card
-      style="margin-left: 30px; margin-right: 30px; border-radius: 50px; margin-top: 40px"
+      style="margin-left: 3%; margin-right: 3%; border-radius: 50px; margin-top: 40px"
   >
     <h1>Новости</h1>
     <b-row>
@@ -13,7 +13,7 @@
           :title="news_.title"
           :img-src="news_.image"
           :key="news_.id"
-          style="width: 300px; margin-left: 40px; margin-top: 40px; margin-right: 40px"
+          style="width: 250px; margin-left: 40px; margin-top: 40px; margin-right: 40px"
           @click="show_news(news_)"
         >
           <b-card-text
@@ -24,14 +24,16 @@
                      style="margin-left: 10px; font-size: 15px"
             >Совет</b-badge>
             {{news_.text.slice(0,200)}} ...</b-card-text>
-          <p style="color: gray">{{moment(news_.pub_date).format('YYYY-MM-DD HH:mm')}}</p>
+          <template #footer>
+            <p style="color: gray;">{{moment(news_.pub_date).format('YYYY-MM-DD HH:mm')}}</p>
+          </template>
         </b-card>
       </b-card-group>
     </b-row>
   </b-card>
   <b-modal id="modal"
            :title="this.current_news.title">
-    <b-img v-bind="{ src: this.current_news.image}" rounded center width="400px;"/>
+    <b-img v-bind="{ src: this.current_news.image}" rounded center width="300%;"/>
     <p class="my-4">
       <b-badge variant="primary"
                v-if="this.current_news.is_advice"

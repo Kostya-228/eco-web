@@ -18,7 +18,7 @@ import Footer from "./components/Footer";
 import News from "./components/News";
 
 export default {
-  // name: 'App',
+  name: 'App',
   data() {
     return {
       name: 'BootstrapVue',
@@ -27,15 +27,6 @@ export default {
   },
   components: {
     AddGoogleMap, Header, Footer, News
-  },
-  methods: {
-    toggle() {
-      console.log('Toggle button clicked')
-      this.show = !this.show
-    },
-    dismissed() {
-      console.log('Alert dismissed')
-    }
   }
 }
 </script>

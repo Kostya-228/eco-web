@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div id="map">
       <b-card
           title="Найди на карте нужный тебе пункт приема:"
           class="rounded-50"
-          style="margin-left: 30px; margin-right: 30px; border-radius: 50px"
+          style="margin-left: 3%; margin-right: 3%; border-radius: 50px"
       >
         <b-card-body>
           <b-container style="margin-bottom: 50px">
@@ -77,7 +77,7 @@
               ref="mymap"
               :zoom="zoom"
               :center="center"
-              style="width:100%;  height: 800px;"
+              style="width:100%;  aspect-ratio: 1 / 1;"
           >
             <gmap-info-window
                 :options="infoOptions"
@@ -177,13 +177,12 @@ export default {
       const params = {
         position: '[55.799779,49.1319283]',
         radius: 100,
-        ...(this.reception_type != 'null' ? {reception_type: this.reception_type}: {}),
-        ...(this.payback_type != 'null' ? {payback_type: this.payback_type}: {}),
+        ...(this.reception_type !== 'null' ? {reception_type: this.reception_type}: {}),
+        ...(this.payback_type !== 'null' ? {payback_type: this.payback_type}: {}),
         // пока что я не разобрался, как работать со списком в параметрах запроса в axios
         ...(this.selected_filter.id  != null ? {filters: this.selected_filter.id}: {}),
         //...((this.selected_filters.length > 0) ? {filters: this.selected_filters.map(f_ => this.filters.filter(f => f.name === f_)[0].id)[0] }: {}),
       }
-      console.log(params);
       axios
           .get('https://recyclehub.ru:5000/api/rec_points', {
             params: params,
@@ -192,7 +191,6 @@ export default {
             }
           })
           .then(response => {
-            console.log('response')
             this.addLocationMarker(response.data);
           });
     },
