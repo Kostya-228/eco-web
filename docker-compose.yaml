@@ -5,13 +5,10 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
-    volumes:
-      - ./ssl/certificate.pem:/app/certificate.pem
-      - ./ssl/key.pem:/app/key.pem
     image: eco-frontoffice:latest
     ports:
       - "8080:8080"
-    command: [ "http-server", "dist", "--ssl", "--cert", "certificate.pem", "--key", "key.pem" ]
+    command: [ "http-server", "dist"]
   privacy:
     container_name: eco-privacy
     build:
