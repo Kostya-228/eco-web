@@ -1,4 +1,4 @@
-FROM node:12.15.0
+FROM node:12.22.7
 
 # устанавливаем простой HTTP-сервер для статики
 RUN npm install -g http-server
