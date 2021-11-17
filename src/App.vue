@@ -19,12 +19,6 @@ import News from "./components/News";
 
 export default {
   name: 'App',
-  data() {
-    return {
-      name: 'BootstrapVue',
-      show: true
-    }
-  },
   components: {
     AddGoogleMap, Header, Footer, News
   }

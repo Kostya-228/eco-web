@@ -104,7 +104,7 @@
 
 <script>
 import axios from 'axios'
-var qs = require('qs');
+let qs = require('qs');
 
 export default {
   name: "AddGoogleMap",
@@ -179,9 +179,7 @@ export default {
         radius: 100,
         ...(this.reception_type !== 'null' ? {reception_type: this.reception_type}: {}),
         ...(this.payback_type !== 'null' ? {payback_type: this.payback_type}: {}),
-        // пока что я не разобрался, как работать со списком в параметрах запроса в axios
         ...(this.selected_filter.id  != null ? {filters: this.selected_filter.id}: {}),
-        //...((this.selected_filters.length > 0) ? {filters: this.selected_filters.map(f_ => this.filters.filter(f => f.name === f_)[0].id)[0] }: {}),
       }
       axios
           .get('https://recyclehub.ru:5000/api/rec_points', {
@@ -210,16 +208,13 @@ export default {
     toggleInfoWindow: function (marker, idx) {
       this.infoPosition = marker.position;
 
-      axios
-          .get(`https://recyclehub.ru:5000/api/rec_points/${marker.id}`)
+      axios.get(`https://recyclehub.ru:5000/api/rec_points/${marker.id}`)
           .then(response => {
             this.infoOptions.content = this.getInfoWindowContent(response.data);
           });
-      //check if its the same marker that was selected if yes toggle
       if (this.currentMidx === idx) {
         this.infoOpened = !this.infoOpened;
       }
-      //if different marker set infowindow to open and reset current marker index
       else {
         this.infoOpened = true;
         this.currentMidx = idx;

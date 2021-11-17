@@ -26,7 +26,6 @@
   </b-navbar>
       <b-carousel
         id="carousel"
-        v-model="slide"
         :interval="4000"
         controls
         indicators
@@ -82,34 +81,12 @@
           </div>
         </template>
       </b-carousel-slide>
-<!--      <b-carousel-slide img-src="images/4.svg"></b-carousel-slide>-->
-
-      <!-- Slides with img slot -->
-      <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
-<!--      <b-carousel-slide>-->
-<!--        <template #img>-->
-<!--          <b-img width="500" src="images/4.svg"/>-->
-<!--        </template>-->
-<!--      </b-carousel-slide>-->
-
-<!--      <b-carousel-slide caption="Blank Image" img-blank img-alt="Blank image">-->
-<!--        <p>-->
-<!--          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eros felis, tincidunt-->
-<!--          a tincidunt eget, convallis vel est. Ut pellentesque ut lacus vel interdum.-->
-<!--        </p>-->
-<!--      </b-carousel-slide>-->
     </b-carousel>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Header",
-  data() {
-    return {
-      slide: 0,
-      sliding: null
-    }
-  }
+  name: "Header"
 }
 </script>
