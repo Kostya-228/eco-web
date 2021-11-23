@@ -1,29 +1,28 @@
 <template>
   <div id="news">
-  <b-card
-      style="margin-left: 3%; margin-right: 3%; border-radius: 50px; margin-top: 40px"
-  >
+  <b-card class="view-block">
     <h1>Новости</h1>
     <b-row>
       <b-card-group
-                    v-for="news_ in news"
-                    :key="news_.id"
+        v-for="news_ in news"
+        :key="news_.id"
       >
         <b-card
-          :title="news_.title"
-          :img-src="news_.image"
-          :key="news_.id"
-          style="width: 250px; margin-left: 40px; margin-top: 40px; margin-right: 40px"
-          @click="show_news(news_)"
+            :title="news_.title"
+            :img-src="news_.image"
+            :key="news_.id"
+            @click="show_news(news_)"
+            class="news-box"
         >
           <b-card-text
               style="text-align: left"
           >
             <b-badge variant="primary"
                      v-if="news_.is_advice"
-                     style="margin-left: 10px; font-size: 15px"
+                     class="advice"
             >Совет</b-badge>
-            {{news_.text.slice(0,200)}} ...</b-card-text>
+            {{news_.text.slice(0,200)}} ...
+          </b-card-text>
           <template #footer>
             <p style="color: gray;">{{moment(news_.pub_date).format('YYYY-MM-DD HH:mm')}}</p>
           </template>
@@ -37,7 +36,7 @@
     <p class="my-4">
       <b-badge variant="primary"
                v-if="this.current_news.is_advice"
-               style="margin-left: 10px; font-size: 15px"
+               class="advice"
       >Совет</b-badge>
       {{ this.current_news.text }}</p>
     <p>{{ moment(this.current_news.pub_date).format('YYYY-MM-DD HH:mm') }}</p>
@@ -79,3 +78,18 @@ export default {
   }
 }
 </script>
+
+<style>
+@import '../assets/css/styles.css';
+
+.news-box {
+  width: 250px;
+  margin-left: 40px;
+  margin-top: 40px;
+  margin-right: 40px;
+}
+.advice {
+  margin-left: 10px;
+  font-size: 15px;
+}
+</style>

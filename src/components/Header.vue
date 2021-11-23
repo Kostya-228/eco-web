@@ -6,13 +6,13 @@
 
             <div v-if="$isMobile()">
               <b-navbar-nav>
-              <b-nav-item-dropdown text="О нас" left>
-                <b-nav-item href="#carousel">О нас</b-nav-item>
-                <b-nav-item href="#map">Карта</b-nav-item>
-                <b-nav-item href="#news">Новости</b-nav-item>
-                <b-nav-item href="#footer">Приложение</b-nav-item>
-              </b-nav-item-dropdown>
-                </b-navbar-nav>
+                <b-nav-item-dropdown text="О нас" left>
+                  <b-nav-item href="#carousel">О нас</b-nav-item>
+                  <b-nav-item href="#map">Карта</b-nav-item>
+                  <b-nav-item href="#news">Новости</b-nav-item>
+                  <b-nav-item href="#footer">Приложение</b-nav-item>
+                </b-nav-item-dropdown>
+              </b-navbar-nav>
             </div>
             <div v-else>
               <b-navbar-nav>
@@ -30,54 +30,18 @@
         controls
         indicators
         img-height="500"
-        style="text-shadow: 2px 2px 3px #333; width: 80%; margin: auto"
     >
 
       <b-carousel-slide
-        caption="Привет"
-        text="Это приложение поможет вам найти ближайший пункт приема вторсырья
-         и получить реальные деньги за отсортированнынй мусор из твоего дома"
+        v-for="item in carousel"
+        v-bind:key="item.title"
+        v-bind:caption="item.title"
+        v-bind:text="item.text"
       >
         <template #img>
-          <div v-if="$isMobile()">
-            <b-img width="300" src="images/1.svg"/>
-            <div style="height:200px"/>
-          </div>
-          <div v-else>
-            <b-img width="450" src="images/1.svg"/>
-          </div>
-        </template>
-      </b-carousel-slide>
-
-
-      <b-carousel-slide
-          caption="Вместе"
-          text="Мы научимся правильной сортировке отходов и поможем нашей планете стать чище.
-           Для этого в приложении мы разарботали экогид, который поможет во всем разобраться"
-      >
-        <template #img>
-          <div v-if="$isMobile()">
-            <b-img width="300" src="images/2.svg"/>
-            <div style="height:200px"/>
-          </div>
-          <div v-else>
-            <b-img width="450" src="images/2.svg"/>
-          </div>
-        </template>
-      </b-carousel-slide>
-
-      <b-carousel-slide
-        caption="Получай ЭкоКоины"
-        text="За выполенение заданий, которые помогают приложению становиться лучше. Затем вы
-         сможете обменять ЭкоКоины на товары и услуги партнера сервиса."
-      >
-        <template #img>
-          <div v-if="$isMobile()">
-            <b-img width="300" src="images/3.svg"/>
-            <div style="height:200px"/>
-          </div>
-          <div v-else>
-            <b-img width="450" src="images/3.svg"/>
+          <div>
+            <b-img v-bind:width="($isMobile())? 300: 450" v-bind:src="item.image"/>
+          <div v-if="$isMobile()" class="carousel-mobile"/>
           </div>
         </template>
       </b-carousel-slide>
@@ -87,6 +51,59 @@
 
 <script>
 export default {
-  name: "Header"
+  name: "Header",
+  data(){
+    return {
+      carousel: [
+        {
+          title: "Привет",
+          text: "Это приложение поможет вам найти ближайший пункт приема вторсырья " +
+              "и получить реальные деньги за отсортированнынй мусор из твоего дома",
+          image: "images/1.svg"
+        },
+        {
+          title: "Вместе",
+          text: "Мы научимся правильной сортировке отходов и поможем нашей планете стать чище. " +
+              "Для этого в приложении мы разарботали экогид, который поможет во всем разобраться",
+          image: "images/2.svg"
+        },
+        {
+          title: "Получай ЭкоКоины",
+          text: "За выполенение заданий, которые помогают приложению становиться лучше. Затем вы " +
+              "сможете обменять ЭкоКоины на товары и услуги партнера сервиса",
+          image: "images/3.svg"
+        },
+      ]
+    }
+  }
 }
 </script>
+
+<style>
+#carousel {
+  text-shadow: none;
+}
+#carousel h3, #carousel p {
+  padding: 2px 2px;
+  line-height:1.4;
+  font-weight: 700;
+  color: aliceblue;
+  background-color: gray;
+  border-radius: 6px;
+}
+#carousel p {
+  display: inline;
+  box-decoration-break: clone;
+}
+#carousel h3 {
+  display: block;
+  width: max-content;
+  margin: auto auto 20px;
+}
+div .carousel-caption {
+  text-align: left;
+}
+.carousel-mobile {
+  height: 200px;
+}
+</style>

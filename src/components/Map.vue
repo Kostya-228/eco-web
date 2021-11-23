@@ -2,11 +2,10 @@
   <div id="map">
       <b-card
           title="Найди на карте нужный тебе пункт приема:"
-          class="rounded-50"
-          style="margin-left: 3%; margin-right: 3%; border-radius: 50px"
+          class="view-block"
       >
         <b-card-body>
-          <b-container style="margin-bottom: 50px">
+          <b-container class="item">
             <b-row>
               <b-col>
                 <b-card>
@@ -74,10 +73,10 @@
           </b-container>
 
           <gmap-map
+              id="map-object"
               ref="mymap"
               :zoom="zoom"
               :center="center"
-              style="width:100%;  aspect-ratio: 1 / 1;"
           >
             <gmap-info-window
                 :options="infoOptions"
@@ -284,3 +283,12 @@ export default {
   }
 };
 </script>
+
+<style>
+@import '../assets/css/styles.css';
+
+#map-object {
+  width:100%;
+  aspect-ratio: 1 / 1;
+}
+</style>

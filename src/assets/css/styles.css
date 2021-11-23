@@ -1,0 +1,10 @@
+
+.view-block {
+    margin-left: 3%;
+    margin-right: 3%;
+    margin-top: 40px;
+    border-radius: 50px !important;
+}
+.view-block .item {
+    margin-bottom: 50px;
+}

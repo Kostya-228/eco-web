@@ -1,9 +1,5 @@
 <template>
-  <div id="app" style="
-    background-image: url(header-bg.png);
-    background-repeat: no-repeat;
-    background-color: #d5dee6;
-  ">
+  <div id="app">
     <Header/>
     <AddGoogleMap/>
     <News/>
@@ -12,7 +8,7 @@
 </template>
 
 <script>
-import AddGoogleMap from "./components/AddGoogleMap"
+import AddGoogleMap from "./components/Map"
 import Header from "./components/Header"
 import Footer from "./components/Footer";
 import News from "./components/News";
@@ -33,5 +29,6 @@ export default {
   text-align: center;
   color: #000000;
   margin-top: 50px;
+  background: url("assets/header-bg.png") no-repeat #d5dee6;
 }
 </style>
