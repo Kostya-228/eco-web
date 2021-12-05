@@ -10,7 +10,7 @@
                   <b-nav-item href="#carousel">О нас</b-nav-item>
                   <b-nav-item href="#map">Карта</b-nav-item>
                   <b-nav-item href="#news">Новости</b-nav-item>
-                  <b-nav-item href="#footer">Приложение</b-nav-item>
+                  <b-nav-item href="#eco-footer">Приложение</b-nav-item>
                 </b-nav-item-dropdown>
               </b-navbar-nav>
             </div>
@@ -19,7 +19,7 @@
                 <b-nav-item href="#carousel">О нас</b-nav-item>
                 <b-nav-item href="#map">Карта</b-nav-item>
                 <b-nav-item href="#news">Новости</b-nav-item>
-                <b-nav-item href="#footer">Приложение</b-nav-item>
+                <b-nav-item href="#eco-footer">Приложение</b-nav-item>
               </b-navbar-nav>
             </div>
         </b-collapse>
@@ -41,7 +41,10 @@
         <template #img>
           <div>
             <b-img v-bind:width="($isMobile())? 300: 450" v-bind:src="item.image"/>
-          <div v-if="$isMobile()" class="carousel-mobile"/>
+            <div v-bind:class="{
+              'carousel-mobile': $isMobile(),
+              'carousel-pc': !$isMobile(),
+            }"/>
           </div>
         </template>
       </b-carousel-slide>
@@ -82,13 +85,16 @@ export default {
 <style>
 #carousel {
   text-shadow: none;
+  width: 80%;
+  max-width: 900px;
+  margin: auto;
 }
 #carousel h3, #carousel p {
   padding: 2px 2px;
   line-height:1.4;
   font-weight: 700;
-  color: aliceblue;
-  background-color: gray;
+  color: green;
+  background-color: white;
   border-radius: 6px;
 }
 #carousel p {
@@ -101,9 +107,12 @@ export default {
   margin: auto auto 20px;
 }
 div .carousel-caption {
-  text-align: left;
+  text-align: center;
 }
 .carousel-mobile {
   height: 200px;
+}
+.carousel-pc {
+  height: 100px;
 }
 </style>

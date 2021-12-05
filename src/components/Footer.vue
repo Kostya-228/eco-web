@@ -1,5 +1,5 @@
 <template>
-  <div id="footer">
+  <div id="eco-footer">
     <footer>
       <b-container>
         <b-row>
@@ -60,7 +60,7 @@ export default {
 </script>
 
 <style>
-footer {
+#eco-footer {
   margin-top: 300px;
   padding-top: 100px;
   padding-bottom: 100px;
@@ -68,7 +68,7 @@ footer {
   background-color: #2d3747;
   color: aliceblue;
 }
-footer::before {
+#eco-footer::before {
   content: "";
   width: 410px;
   height: 562px;
@@ -80,16 +80,16 @@ footer::before {
   right: 0;
   z-index: 0;
 }
-#footer a {
+#eco-footer a {
   color: aliceblue;
 }
 
-#footer .text-secondary {
+#eco-footer .text-secondary {
   margin: auto auto 20px;
   font-size: 20px;
   z-index: 1;
 }
-#footer p, footer a{
+#eco-footer p, footer a{
   margin: auto auto 20px;
   z-index: 1;
 }

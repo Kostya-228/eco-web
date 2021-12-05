@@ -7,71 +7,58 @@
         <b-card-body>
           <b-container class="item">
             <b-row>
-              <b-col>
-                <b-card>
-                  <b-card-header>
-                    <h5>Тип ресурса</h5>
-                    <b-dropdown v-bind:text="selected_filter.name">
-                      <b-dropdown-item v-for="(filter, index) in filters"
-                                       :key="index"
-                                       :value="filter"
-                                       @click="selected_filter = filter"
-                      >{{ filter.name }}</b-dropdown-item>
-                    </b-dropdown>
-                  </b-card-header>
-                  <b-card-text v-if="selected_filter.id !== null">
-                    <b-row style="margin-top: 20px">
-                      <b-card-text>Что можно:
+              <b-col class="filter">
+                  <h5>Тип ресурса</h5>
+                  <b-dropdown v-bind:text="selected_filter.name">
+                    <b-dropdown-item v-for="(filter, index) in filters"
+                                     :key="index"
+                                     :value="filter"
+                                     @click="selected_filter = filter"
+                    >{{ filter.name }}</b-dropdown-item>
+                  </b-dropdown>
+                  <div v-if="selected_filter.id !== null">
+                    <b-row class="filter-selected-item">
+                      <div>Что можно:
                         <b-badge variant="success"
+                                 class="filter-badge"
                                  v-for="(item, index) in selected_filter.key_words"
                                  :key="index"
-                                 style="margin-left: 10px; font-size: 15px"
                         >{{item}}</b-badge>
-                      </b-card-text>
+                      </div>
                     </b-row>
-                    <b-row style="margin-top: 20px">
-                      <b-card-text>Что нельзя:
+                    <b-row class="filter-selected-item">
+                      <div>Что нельзя:
                         <b-badge variant="danger"
+                                 class="filter-badge"
                                  v-for="(item, index) in selected_filter.bad_words"
                                  :key="index"
-                                 style="margin-left: 10px; font-size: 15px"
                         >{{item}}</b-badge>
-                      </b-card-text>
+                      </div>
                     </b-row>
-                  </b-card-text>
-                </b-card>
+                  </div>
               </b-col>
-              <b-col>
-                <b-card>
-                  <b-card-header>
-                    <h5>Тип переработки</h5>
-                    <b-dropdown v-bind:text="rec_types[reception_type]">
-                      <b-dropdown-item v-for="(name, key) in rec_types"
-                                       :key="key"
-                                       :value="key"
-                                       @click="reception_type = key"
-                      >{{ name }}</b-dropdown-item>
-                    </b-dropdown>
-                  </b-card-header>
-                </b-card>
+              <b-col class="filter">
+                <h5>Тип переработки</h5>
+                <b-dropdown v-bind:text="rec_types[reception_type]">
+                  <b-dropdown-item v-for="(name, key) in rec_types"
+                                   :key="key"
+                                   :value="key"
+                                   @click="reception_type = key"
+                  >{{ name }}</b-dropdown-item>
+                </b-dropdown>
               </b-col>
-              <b-col>
-                <b-card>
-                  <b-card-header>
-                    <h5>Тип оплаты</h5>
-                    <b-dropdown v-bind:text="payback_types[payback_type]">
-                      <b-dropdown-item v-for="(name, key) in payback_types"
-                                       :key="key"
-                                       :value="key"
-                                       @click="payback_type = key"
-                      >{{ name }}</b-dropdown-item>
-                    </b-dropdown>
-                  </b-card-header>
-                </b-card>
+              <b-col class="filter">
+                <h5>Тип оплаты</h5>
+                <b-dropdown v-bind:text="payback_types[payback_type]">
+                  <b-dropdown-item v-for="(name, key) in payback_types"
+                                   :key="key"
+                                   :value="key"
+                                   @click="payback_type = key"
+                  >{{ name }}</b-dropdown-item>
+                </b-dropdown>
               </b-col>
             </b-row>
           </b-container>
-
           <gmap-map
               id="map-object"
               ref="mymap"
@@ -290,5 +277,18 @@ export default {
 #map-object {
   width:100%;
   aspect-ratio: 1 / 1;
+}
+
+.filter-badge {
+  margin-left: 10px;
+  font-size: 15px;
+}
+
+.filter-selected-item {
+  margin-top: 20px;
+}
+
+.filter {
+  margin-top: 40px;
 }
 </style>

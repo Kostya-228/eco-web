@@ -2,10 +2,11 @@
   <div id="news">
   <b-card class="view-block">
     <h1>Новости</h1>
-    <b-row>
+    <b-row v-if="news.length">
       <b-card-group
         v-for="news_ in news"
         :key="news_.id"
+        v-bind:class="{'news-container-mobile': $isMobile()}"
       >
         <b-card
             :title="news_.title"
@@ -29,6 +30,9 @@
         </b-card>
       </b-card-group>
     </b-row>
+    <div v-else>
+      <p>К сожалению нет новостей</p>
+    </div>
   </b-card>
   <b-modal id="modal"
            :title="this.current_news.title">
@@ -87,6 +91,9 @@ export default {
   margin-left: 40px;
   margin-top: 40px;
   margin-right: 40px;
+}
+.news-container-mobile {
+  margin: auto;
 }
 .advice {
   margin-left: 10px;
