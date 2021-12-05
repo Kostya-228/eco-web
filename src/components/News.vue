@@ -2,11 +2,10 @@
   <div id="news">
   <b-card class="view-block">
     <h1>Новости</h1>
-    <b-row v-if="news.length">
+    <b-row v-if="news.length" class="news-container">
       <b-card-group
         v-for="news_ in news"
         :key="news_.id"
-        v-bind:class="{'news-container-mobile': $isMobile()}"
       >
         <b-card
             :title="news_.title"
@@ -92,8 +91,8 @@ export default {
   margin-top: 40px;
   margin-right: 40px;
 }
-.news-container-mobile {
-  margin: auto;
+.news-container {
+  justify-content: center;
 }
 .advice {
   margin-left: 10px;
